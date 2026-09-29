@@ -1,0 +1,18 @@
+// Optional persistence. Run `npx prisma migrate dev` after setting DATABASE_URL
+// in .env to enable durable room snapshots. The app works without this too.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Room {
+  id        String   @id
+  data      String   // JSON-serialized array of Shape objects
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
